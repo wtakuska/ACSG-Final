@@ -1,0 +1,99 @@
+.App {
+  text-align: center;
+  font-family: 'Trispace', sans-serif;
+  display: grid;
+  place-items: center;
+}
+
+/*Chat interface in App.js file*/
+
+.chatContainer {
+  width: 210px;
+  height: 40px;
+  margin: 7px;
+  font-size: 16px;
+}
+
+.chatContainer h1 {
+  color: cornflowerblue;
+}
+
+.chatContainer input {
+  font-size: 13px;
+  width: 200px;
+  height: 25px;
+  margin: 7px;
+}
+
+.chatContainer button{
+  font-size: 13px;
+  color: white;
+  width: 150px;
+  height: 35px;
+  margin: 7px;
+  border-radius: 8px;
+  background-color: cornflowerblue;
+}
+
+/*Chat interface in Chat.js file*/
+
+.chatBox {
+  position: relative;
+  top: 250px;
+}
+
+.chatBox .chatHeader h1 {
+  color: mediumpurple;
+}
+
+.chatBox .chatBody {
+  width: 300px;
+  height: 350px;
+  overflow: scroll;
+  font-size: 14px;
+  border: 1px solid;
+  background: #fff;
+}
+
+#first {
+  text-align: left;
+}
+
+#first .messageContent {
+  display: inline-flex;
+  background-color: cornflowerblue;
+}
+
+#first .messageInformation {
+  font-size:10px;
+}
+
+#second {
+  text-align: right;
+}
+
+#second .messageContent {
+  display: inline-flex;
+  background-color: mediumpurple;
+}
+
+#second .messageInformation {
+  font-size: 10px;
+}
+
+.chatBox .chatFooter input{
+  width: 294px;
+  height: 35px;
+}
+
+.chatBox .chatFooter button {
+  font-size: 13px;
+  color: white;
+  width: 150px;
+  height: 35px;
+  margin: 15px;
+  border-radius: 8px;
+  background-color: mediumpurple;
+}
+
+
