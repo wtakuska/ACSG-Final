@@ -15,6 +15,7 @@ function Chat({socket, username, room }) {
             };
             await socket.emit("send_message", messageData);
             setMessageList((list) => [...list, messageData]);
+            setMessage("");
         }
     };
     useEffect(() => {
@@ -44,7 +45,7 @@ function Chat({socket, username, room }) {
                 })}
             </div>
             <div className="chatFooter">
-                <input type="text" placeholder="Type your message" onChange={(event) => {setMessage(event.target.value);}} /><br/>
+                <input type="text" value={instantMessage} placeholder="Type your message" onChange={(event) => {setMessage(event.target.value);}} /><br/>
                 <button type="button" className="button" onClick={messageSend}>ENTER</button>
             </div>
         </div>
