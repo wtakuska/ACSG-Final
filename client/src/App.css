@@ -5,12 +5,33 @@
   place-items: center;
 }
 
-/*Chat interface in App.js file*/
+body,html {
+  margin:0
+}
+
+ /*Nav bar styling in Navbar.js */
+ .navbar {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:mediumslateblue;
+  flex-direction: row;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  align-items: center;
+  margin: 35px;
+}
+
+/*Chat interface in Home.js file*/
 
 .chatContainer {
-  width: 210px;
-  height: 40px;
-  margin: 7px;
+  width: 250px;
   font-size: 16px;
 }
 
@@ -30,7 +51,7 @@
   color: white;
   width: 150px;
   height: 35px;
-  margin: 7px;
+  margin: 20px;
   border-radius: 8px;
   background-color: cornflowerblue;
 }
@@ -39,7 +60,8 @@
 
 .chatBox {
   position: relative;
-  top: 250px;
+  top: 10px;
+  margin-bottom: -241px;
 }
 
 .chatBox .chatHeader h1 {
@@ -91,9 +113,38 @@
   color: white;
   width: 150px;
   height: 35px;
-  margin: 15px;
+  margin-top: 15px;
   border-radius: 8px;
   background-color: mediumpurple;
 }
 
+/*About page CSS*/
 
+.about {
+  font-size: 15px;
+  color: rgb(123, 40, 156);
+  line-height: 1.5;
+  margin-bottom: -500px;
+}
+
+/*Cat photo in About.js*/
+.photo {
+  width: 300px;
+  height: 400px;
+}
+
+/*Footer in Footer.js*/
+.footer {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  background-color:royalblue;
+  justify-content: center;
+  align-items: center;
+  bottom: 0px;
+  margin-top: 740px;
+}
+
+.footer p {
+  color: white;
+}
