@@ -12,7 +12,7 @@ function Home() {
 
   const joinChat = () => {
       if (username !== "" && room !== "") {
-          socket.emit("join_chat", room);
+          socket.emit("join_chat", /*username,*/ room);
           setChatOn(true);
       }
   };
@@ -33,10 +33,3 @@ function Home() {
   );
 }
 export default Home;
-/*import React from "react";
-
-function Home() {
-    return <div></div>
-}
-
-export default Home;*/

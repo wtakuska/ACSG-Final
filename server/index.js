@@ -9,6 +9,7 @@ const { default: mongoose } = require("mongoose");
 dotenv.config();
 
 app.use(express.json());
+//app.use(express.urlencoded()); 
 
 app.use(cors());
 
@@ -31,17 +32,20 @@ const User = mongoose.model(
     "usernames"
 );
 
-mongoose.connection.once('open', function(){
+mongoose.connection.once('open', function(){ 
     console.log('Connected to database!')
     app.use('/', express.query());
 
     app.get('/Users', function(request, response){  
-        //var test = request.query.name;
         var query = User.find(request.query.uniqueName);
         query.exec(function (err, docs){
-            console.log(docs);
-            response.status(200);
-            response.send(JSON.stringify({docs}));
+            if(err) {
+                console.error('There was an uncaught error', err);
+            } else {
+                console.log(docs);
+                response.status(200);
+                response.send(JSON.stringify({docs}));
+            }
         });
     })
 
@@ -50,10 +54,13 @@ mongoose.connection.once('open', function(){
             uniqueName: request.body.uniqueName
         });
         newUser.save(function (err, doc) {
-            console.log(doc);
-            response.status(200);
+            if(err) {
+                console.error('There was an uncaught error', err);
+            } else {
+                console.log(doc);
+                response.status(200);
+            }
         });
-            
     })
 
     app.listen(5005, function (){
@@ -62,12 +69,37 @@ mongoose.connection.once('open', function(){
 
 });
 
-var userNames = [];
-
+function getAll() {
+    mongoose.connect(process.env.DB_ACCESS, function (err, db) {
+        if (err) throw err;
+        var coll = db.collection('usernames');
+        coll.find({}, {projection: {
+            _id: false,
+            username: true
+        }}).toArray(function(err, results) {
+            console.dir(results);
+            return results;
+        });
+    });
+}
 
 //listening for events within socket.io server
 io.on("connection", (socket) => {
     console.log(`Connected: ${socket.id}`);
+
+//getAll() not working properly, crashing app when activated
+    /*socket.on("join_chat", (username, room) => {
+        userNames = getAll();
+        if(userNames[username]) {
+            console.log(`User: ${username} exists in DB!`);
+        } else {
+            userNames[username] = username;
+            socket.username = username;
+            io.sockets.emit('usernames', userNames)
+        }
+        socket.join(username);
+        console.log(`User ID: ${username} joined chat: ${room}`);
+    });*/
 
     socket.on("join_chat", (data) => {
         socket.join(data);
@@ -76,17 +108,6 @@ io.on("connection", (socket) => {
 
     socket.on("send_message", (data) => {
         socket.to(data.room).emit("obtain_message", data);
-    });
-
-    socket.on('username', () => {
-        if(userNames[username]) {
-            console.log(`User: ${username} exists in DB!`);
-        } else {
-            userNames[username] = username;
-            socket.username = username;
-            io.sockets.emit('usernames', userNames)
-        }
-
     });
 
     socket.on("disconnect", () => {
