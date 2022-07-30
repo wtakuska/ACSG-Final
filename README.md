@@ -1,12 +1,10 @@
 # ACSG-542-Final
 # Install all dependencies.
 ```
-npm i
+yarn install
 ```
 
 # Start server
 ```
-npm start
+yarn start
 ```
-
-
