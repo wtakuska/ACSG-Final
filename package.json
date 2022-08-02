@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  },
+  "scripts": {
+    "install:all": "yarn install && for D in */; do yarn --cwd \"${D}\"; done",
+    "dev": "concurrently -k \"yarn server\" \"yarn client\" ",
+    "server": "cd ./server && yarn start",
+    "client": "cd ./client && yarn start"
+  }
+}

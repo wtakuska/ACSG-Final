@@ -24,6 +24,15 @@ server/.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # Project exclude paths
+node_modules
 /server/node_modules/
+/client/node_modules/

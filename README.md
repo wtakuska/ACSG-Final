@@ -1,10 +1,19 @@
 # ACSG-542-Final
 # Install all dependencies.
 ```
-yarn install
+yarn run install:all
 ```
 
-# Start server
+## Create .env file with database credentials 
 ```
-yarn start
+cp sample.env ./server/.env
 ```
+**Note**: Replace CONNECTION_STRING with MongoDb connection string
+
+
+## Start servers (front & backend)
+```
+yarn run dev
+```
+
+
