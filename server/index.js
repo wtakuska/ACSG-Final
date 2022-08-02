@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
     console.log(`Connected: ${socket.id}`);
 
 //getAll() not working properly, crashing app when activated
-    /*socket.on("join_chat", (username, room) => {
+    socket.on("join_chat", (username, room) => {
         userNames = getAll();
         if(userNames[username]) {
             console.log(`User: ${username} exists in DB!`);
@@ -99,7 +99,7 @@ io.on("connection", (socket) => {
         }
         socket.join(username);
         console.log(`User ID: ${username} joined chat: ${room}`);
-    });*/
+    });
 
     socket.on("join_chat", (data) => {
         socket.join(data);
