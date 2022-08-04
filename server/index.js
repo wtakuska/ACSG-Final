@@ -51,7 +51,7 @@ mongoose.connection.once('open', function(){
 
     app.post('/Users', function(request, response){
         var newUser = new User({
-            uniqueName: request.body.uniqueName
+            username: request.body.uniqueName
         });
         newUser.save(function (err, doc) {
             if(err) {
