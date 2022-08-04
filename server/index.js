@@ -89,8 +89,18 @@ io.on("connection", (socket) => {
 
 //getAll() not working properly, crashing app when activated
     socket.on("join_chat", (username, room) => {
-        userNames = getAll();
-        if(userNames[username]) {
+        found = {};
+        User.find({username: username}, function(err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                found = result;
+            }
+        });
+
+        console.log("User found! " + found);
+        if(found) {
             console.log(`User: ${username} exists in DB!`);
         } else {
             userNames[username] = username;
