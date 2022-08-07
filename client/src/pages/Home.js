@@ -12,7 +12,7 @@ function Home() {
 
   const joinChat = () => {
       if (username !== "" && room !== "") {
-          socket.emit("join_chat", /*username,*/ room);
+          socket.emit("join_chat", username, room);
           setChatOn(true);
       }
   };

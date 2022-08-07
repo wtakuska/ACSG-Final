@@ -51,7 +51,7 @@ mongoose.connection.once('open', function(){
 
     app.post('/Users', function(request, response){
         var newUser = new User({
-            uniqueName: request.body.uniqueName
+            username: request.body.uniqueName
         });
         newUser.save(function (err, doc) {
             if(err) {
@@ -88,9 +88,19 @@ io.on("connection", (socket) => {
     console.log(`Connected: ${socket.id}`);
 
 //getAll() not working properly, crashing app when activated
-    /*socket.on("join_chat", (username, room) => {
-        userNames = getAll();
-        if(userNames[username]) {
+    socket.on("join_chat", (username, room) => {
+        found = {};
+        User.find({username: username}, function(err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                found = result;
+            }
+        });
+
+        console.log("User found! " + found);
+        if(found) {
             console.log(`User: ${username} exists in DB!`);
         } else {
             userNames[username] = username;
@@ -99,7 +109,7 @@ io.on("connection", (socket) => {
         }
         socket.join(username);
         console.log(`User ID: ${username} joined chat: ${room}`);
-    });*/
+    });
 
     socket.on("join_chat", (data) => {
         socket.join(data);

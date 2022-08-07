@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true 
+        unique: true
     }
-});
+}, {collection: 'usernames'});
 
 /*userSchema.path('username').validate(async (username) => {
     const usernameCount = await mongoose.models.users.countDocuments({ username })
