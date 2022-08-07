@@ -7,9 +7,4 @@ const userSchema = new mongoose.Schema({
     }
 }, {collection: 'usernames'});
 
-/*userSchema.path('username').validate(async (username) => {
-    const usernameCount = await mongoose.models.users.countDocuments({ username })
-    return !usernameCount
-  }, 'Username already exists')*/
-
 exports.userSchema = userSchema;

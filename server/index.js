@@ -9,7 +9,6 @@ const { default: mongoose } = require("mongoose");
 dotenv.config();
 
 app.use(express.json());
-//app.use(express.urlencoded()); 
 
 app.use(cors());
 
@@ -87,7 +86,6 @@ function getAll() {
 io.on("connection", (socket) => {
     console.log(`Connected: ${socket.id}`);
 
-//getAll() not working properly, crashing app when activated
     socket.on("join_chat", (username, room) => {
         found = {};
         User.find({username: username}, function(err, result) {
@@ -99,24 +97,29 @@ io.on("connection", (socket) => {
             }
         });
 
-        console.log("User found! " + found);
-        if(found) {
+        if(Object.keys(found).length > 0 ) {
             console.log(`User: ${username} exists in DB!`);
         } else {
-            userNames[username] = username;
-            socket.username = username;
-            io.sockets.emit('usernames', userNames)
+            var newUser = new User({
+                username: username
+            });
+            newUser.save(function (err, doc) {
+                if(err) {
+                    console.log(`Username: ${username} already exists in database!`)
+                    console.error('There was an uncaught error', err);
+                } else {
+                    console.log(`Username: ${username} saved to database!`)
+                    console.log(doc);
+                }
+            });
         }
         socket.join(username);
+        socket.to(room).emit(`Welcome ${username}!`)
         console.log(`User ID: ${username} joined chat: ${room}`);
     });
 
-    socket.on("join_chat", (data) => {
-        socket.join(data);
-        console.log(`User ID: ${socket.id} joined chat: ${data}`);
-    });
-
     socket.on("send_message", (data) => {
+        io.emit(data)
         socket.to(data.room).emit("obtain_message", data);
     });
 
